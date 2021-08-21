@@ -148,33 +148,119 @@ console.log(multiply(10,6))
 
 // Class
 
-class Fruit {
-    fId: number|string;
-    name: string;
-    color: string;
-    price: number;
+// class Fruit {
+//     fId: number|string;
+//     name: string;
+//     color: string;
+//     price: number;
 
-    constructor(id:number|string , name:string, color:string, price:number){
-        this.fId=id,
-        this.name=name,
-        this.color=color,
-        this.price=price
+//     constructor(id:number|string , name:string, color:string, price:number){
+//         this.fId=id,
+//         this.name=name,
+//         this.color=color,
+//         this.price=price
+//     }
+// }
+
+// const apple = new Fruit (1, 'Apple', 'Green', 20);
+// const orange = new Fruit (2, 'Orange', 'Orange', 15);
+// console.dir(apple);
+// console.dir(orange);
+
+
+// Class interfaces and Access Modifiers
+
+// interface StudetInterface{
+//     s_id:string;
+//     firstName: string;
+//     lastName: string;
+//     dept: string;
+//     changeDept(dept:string): void;
+// }
+
+// class Student implements StudetInterface {
+//     s_id: string = '0'; //default
+//     firstName: string;
+//     lastName:string;
+//     dept: string;
+
+//     constructor (id:string, firstName:string, lastName: string, dept: string){
+//         this.s_id = id;
+//         this.firstName = firstName;
+//         this.lastName = lastName;
+//         this.dept = dept;
+//     }
+
+//     changeDept(dept:string){
+//         this.dept = dept;
+//     }
+// }
+
+// const milton = new Student('15X1', 'Jhon', 'Milton', 'Literature');
+// console.dir(milton);
+// milton.changeDept('EEE');
+// console.dir(milton);
+// // milton.dept='CSE'; // Error beacuse private members cannot be modified outside the class
+
+
+// Class inheritence
+
+// Access Modifiers: 'protected' members can be used within the base class itself and within subclass
+//                   'private' members can only be accessed inside the base class itself . Note: use getters and setters methode to modify/access private members
+ 
+class Person {
+    id: number;
+    name: string;
+
+    constructor(id:number, name: string){
+        this.id=id;
+        this.name=name;
+    }
+
+    protected printPerson(){
+        return `${this.name}'s id is ${this.id}`; //
+    }
+    printPerson2(){
+        this.printPerson();
     }
 }
 
-const apple = new Fruit (1, 'Apple', 'Green', 20);
-const orange = new Fruit (2, 'Orange', 'Orange', 15);
-console.log("Apple: " + apple + "\n" + "Orange: " + orange);
+const person1= new Person(907, 'Monica');
+person1.printPerson2();
+
+class Employee extends Person {
+    post: string;
+    salary: number;
+    constructor(id:number, name: string, post: string, salary: number){
+        super(id, name);
+        this.post= post;
+        this.salary= salary;
+    }
+
+    printPerson3(){
+        this.printPerson();
+    }
+}
+
+const james = new Employee(302, 'James', 'Executive', 50000);
+console.log(james.printPerson2());
 
 
+// Generics --> Dynamic type
 
+function getArray(items:any[]):any[]{
+    return new Array().concat(items)
+}
 
+let strArray = getArray(['hello', 'world', 1]);// can have numbers
+let numArray = getArray([7, 13 , 5, 9, 'Jack']); // can have string
 
+function getArrayV2<T>(items:T[]):T[]{
+    return new Array().concat(items)
+}
 
-
-
-
-
+let strArrayV2 = getArrayV2 <string> (['hello', 'world']);// can only have strings
+let numArrayV2 = getArrayV2 <number> ([7, 13 , 5, 9]); // can only have numbers
 
 
 
